@@ -1,15 +1,25 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+import { useContext } from "react";
+import { GlobalContext } from "../context";
 
 export const Navbar = () => {
+  const { searchParams, setSearchParams, formHandler } =
+    useContext(GlobalContext);
+
   return (
-    <nav className="flex justify-between items-center py-6 mx-auto flex-col lg:flex-row gap-5 lg:gap-0 ">
-      <h2 className="text-3xl font-bold ">Food Recipe 👩‍🍳</h2>
-      <form>
+    <nav className="flex justify-between items-center p-6 m-0 flex-col lg:flex-row gap-5 lg:gap-0 bg-slate-50  ">
+      <Link className="text-3xl font-bold" to="/">
+        Food Recipe 👩‍🍳
+      </Link>
+
+      <form onSubmit={formHandler}>
         <input
           type="text"
           name="search"
           placeholder="Search your favorite food...！"
-          className="bg-white/75 p-3 px-8 rounded-full outline-none lg:w-96 shadow-lg shadow-red-100 focus:shadow-red-200 "
+          value={searchParams}
+          onChange={(e) => setSearchParams(e.target.value)}
+          className="bg-white/75 p-3 px-8 rounded-full outline-none lg:w-96 shadow-xl shadow-gray-200 "
         />
       </form>
       <ul className="flex gap-5">
